@@ -6,6 +6,9 @@
 
 </br>
 
+> **Note**:
+> #### If you find/ have WSA .msix builds that are not in [Releases](https://github.com/MustardChef/WSAArchives/releases) <br/> Please open an issue in the [Issues page](https://github.com/MustardChef/WSAArchives/issues) with either a request or link to the build 
+
 > **Warning**: 
 > #### These .msix bundles have, whereever possible, been obtained offical Microsoft Servers. However, there are some older builds that have been obtained from various sources on the internet and have not been scanned and tested before upload. Download and use at your own risk
 
