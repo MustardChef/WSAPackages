@@ -1,13 +1,16 @@
 # WSABuilds: WSA Archives &nbsp; &nbsp; <img src="https://img.shields.io/github/downloads/MustardChef/WSAArchives/total?label=Total%20Downloads&style=for-the-badge"/> 
 ### WSA Packages Archive [<img align="right" src="https://invidget.switchblade.xyz/2thee7zzHZ" style="width: 400px;"/>](https://discord.gg/2thee7zzHZ) 
 
-#### This is an archive of all of the public Windows Subsystem For Android™ Build packages (.msix) from the Microsoft Store
+#### This is an ongoing archive of all of the public Windows Subsystem For Android™ Build packages (.msix) from the Microsoft Store
+[<img src="https://get.microsoft.com/images/en-GB%20dark.svg" style="width: 200px;"/>](https://apps.microsoft.com/store/detail/windows-subsystem-for-android%E2%84%A2-with-amazon-appstore/9P3395VX91NR?hl=en-us&gl=us)
+
+
 #### This repo is purely for Archival Purposes only
 
 </br>
 
 > **Note**:
-> #### If you find/ have WSA .msix builds that are not in [Releases](https://github.com/MustardChef/WSAArchives/releases) <br/> Please open an issue in the [Issues page](https://github.com/MustardChef/WSAArchives/issues) with either a request or link to the build 
+> #### If you find/ have WSA .msix builds that are not in [Releases](https://github.com/MustardChef/WSAArchives/releases) and would like to contribute:<br/> Please open an issue in the [Issues page](https://github.com/MustardChef/WSAArchives/issues) with either a request or link to the build 
 
 > **Warning**: 
 > #### These .msix bundles have, whereever possible, been obtained offical Microsoft Servers. However, there are some older builds that have been obtained from various sources on the internet and have not been scanned and tested before upload. Download and use at your own risk
