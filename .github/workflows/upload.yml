@@ -1,0 +1,31 @@
+name: Upload WSA
+on:
+  workflow_dispatch:
+    inputs:
+      upl:
+        description: 'URL WSA'
+        required: true
+        type: string
+      tag:
+        description: 'Tag'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download
+        run: |
+          sudo apt-get update; sudo apt-get install -y aria2
+          aria2c -d dloa '${{ inputs.upl }}'
+          echo "SHA-256=$(sha256sum dloa/*.Msixbundle)"
+          echo "SHA-1=$(sha1sum dloa/*.Msixbundle)"
+      - name: Upload Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dloa/*.Msixbundle
+          tag_name: ${{ inputs.tag }}
