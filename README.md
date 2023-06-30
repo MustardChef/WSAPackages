@@ -1,5 +1,5 @@
 # WSABuilds: WSA Archives &nbsp; &nbsp; <img src="https://img.shields.io/github/downloads/MustardChef/WSAArchives/total?label=Total%20Downloads&style=for-the-badge"/> 
-### WSA Packages Archive [<img align="right" src="https://github.com/MustardChef/WSABuilds/assets/68516357/3e117927-6ea1-4b51-9059-5b9cfa264b27" />](https://discord.gg/2thee7zzHZ) 
+### WSA Packages Archive [<img align="right" src="https://invidget.switchblade.xyz/2thee7zzHZ" style="width: 375px;"/>](https://discord.gg/2thee7zzHZ)
 
 #### This is an ongoing archive of all of the public Windows Subsystem For Android™ Build packages (.msix) from the Microsoft Store
 [<img src="https://get.microsoft.com/images/en-GB%20dark.svg" style="width: 200px;"/>](https://apps.microsoft.com/store/detail/windows-subsystem-for-android%E2%84%A2-with-amazon-appstore/9P3395VX91NR?hl=en-us&gl=us)
