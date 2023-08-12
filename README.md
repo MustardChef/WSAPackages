@@ -19,7 +19,7 @@
 
 > [!WARNING] 
 > #### These .msix bundles have, whereever possible, been obtained from official Microsoft Servers.
-> However, there are some older builds that have been obtained from various sources on the internet and have not been scanned and tested before upload. Download and use at your own risk
+> However, download and use at your own risk.
 
 
 # Credits
