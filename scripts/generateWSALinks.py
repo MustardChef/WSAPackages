@@ -70,7 +70,7 @@ if ms_account_conf.is_file():
         conf = Prop(f.read())
         user = conf.get('user_code')
 print(f"Generating WSA download link: arch={arch} release_type={release_name}\n", flush=True)
-with open(Path.cwd().parent / ("TestRepo/xml/GetCookie.xml"), "r") as f:
+with open(Path.cwd().parent / ("WSAPackages/xml/GetCookie.xml"), "r") as f:
     cookie_content = f.read().format(user)
 
 out = session.post(
@@ -81,7 +81,7 @@ out = session.post(
 doc = minidom.parseString(out.text)
 cookie = doc.getElementsByTagName('EncryptedData')[0].firstChild.nodeValue
 
-with open(Path.cwd().parent / "TestRepo/xml/WUIDRequest.xml", "r") as f:
+with open(Path.cwd().parent / "WSAPackages/xml/WUIDRequest.xml", "r") as f:
     cat_id_content = f.read().format(user, cookie, cat_id, release_type)
 
 out = session.post(
@@ -118,7 +118,7 @@ for node in doc.getElementsByTagName('NewUpdates')[0].getElementsByTagName('Upda
                 identities[fileinfo[0]] = ([update_identity.attributes['UpdateID'].value,
                                             update_identity.attributes['RevisionNumber'].value], fileinfo[1])
 
-with open(Path.cwd().parent / "TestRepo/xml/FE3FileUrl.xml", "r") as f:
+with open(Path.cwd().parent / "WSAPackages/xml/FE3FileUrl.xml", "r") as f:
     FE3_file_content = f.read()
 
 if not download_dir.is_dir():
