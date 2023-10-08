@@ -36,7 +36,7 @@ jobs:
 
     - name: Obtain User Code
       run: | 
-        echo -e "user_code=${{ secrets.USER_CODE }}" >> download/.ms_account
+        echo -e "user_code=${{ secrets.USER_CODE }}" > /home/runner/work/WSAPackages/WSAPackages/download/.ms_account
 
     - name: Generate WSA MSIX URL
       run: python scripts/generateWSALinks.py arch WIF download wsaUrl
