@@ -6,7 +6,7 @@ on:
       - main
   workflow_dispatch:
   schedule:
-    - cron: "0 */3 * * *"
+    - cron: "0 */5 * * *"
 
 env:
   WSA_WORK_ENV: /home/runner/work/WSAPackages/WSAPackages/download/WSAEnv
