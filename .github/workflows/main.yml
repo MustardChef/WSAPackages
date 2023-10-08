@@ -1,0 +1,106 @@
+name: Download and Release WSA
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */6 * * *"
+
+env:
+  WSA_WORK_ENV: /home/runner/work/WSAPackages/WSAPackages/download/WSAEnv
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check repository name
+      run: |
+        if [[ ${{ github.repository }} != "MustardChef/WSAPackages" ]]; then exit 1; fi
+
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r ./scripts/requirements.txt
+        pip install glob2
+
+    - name: Obtain User Code
+      run: | 
+        echo -e "user_code=${{ secrets.USER_CODE }}" > download/.ms_account
+
+    - name: Generate WSA MSIX URL
+      run: python scripts/generateWSALinks.py arch WIF download wsaUrl
+      
+    - name: Set WSA Version
+      run: |
+        wsa_build_ver=$(cat ${{ env.WSA_WORK_ENV }} | grep WSA_VER | cut -d '=' -f2)
+        echo "WSA Build Version=$wsa_build_ver"
+        echo "WSA_BUILD_VER=$wsa_build_ver" >> $GITHUB_ENV
+        echo "WSA_TAG=WSA_$wsa_build_ver" >> $GITHUB_ENV
+
+
+    - name: Check if tag/release already exists
+      run: |
+        TAG_NAME=${{ env.WSA_TAG }}
+        TAG_URL="https://api.github.com/repos/${{ github.repository }}/git/ref/tags/$TAG_NAME"
+        STATUS_CODE=$(curl --write-out %{http_code} --silent --output /dev/null -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" $TAG_URL)
+        if [ "$STATUS_CODE" -eq 200 ]; then
+          echo "Tag $TAG_NAME already exists. Exiting..."
+          exit 1
+        fi
+      
+    - name: Download the WSA MSIX
+      run: |
+        # Define the file path
+        file_path="/home/runner/work/WSAPackages/WSAPackages/download/wsaUrl"
+        # Open the file and read its contents
+        url=$(cat $file_path)
+        # Download the file using aria2c
+        aria2c $url -d /home/runner/work/WSAPackages/WSAPackages/download/
+        
+    - name: List Files
+      run: ls -l -R
+      
+    - name: Find WSA file
+      id: find_file
+      run: |
+        download_dir="/home/runner/work/WSAPackages/WSAPackages/download/"
+        file_path=$(find $download_dir -name "*MicrosoftCorporationII.WindowsSubsystemForAndroid*")
+        echo "File path: $file_path"
+        echo "FILE_PATH=$file_path" >> $GITHUB_ENV
+
+    - name: Calculate SHA1 and SHA256
+      id: hash
+      run: |
+        sha1=$(sha1sum ${{ env.FILE_PATH }} | cut -d ' ' -f1)
+        sha256=$(sha256sum ${{ env.FILE_PATH }} | cut -d ' ' -f1)
+        echo "SHA1=$sha1"
+        echo "SHA256=$sha256"
+        echo "SHA1=$sha1" >> $GITHUB_ENV
+        echo "SHA256=$sha256" >> $GITHUB_ENV
+        namerelease="Windows Subsystem For Android:"
+        echo "NAME_RELEASE=$namerelease" >> $GITHUB_ENV
+
+    - name: Create Release
+      id: create_release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: ${{ env.FILE_PATH }}
+        tag_name: ${{ env.WSA_TAG }}
+        name: ${{ env.NAME_RELEASE }} ${{ env.WSA_BUILD_VER }}
+        body: |
+          SHA1: `${{ env.SHA1 }}`
+          SHA256: `${{ env.SHA256 }}`
+        draft: false
+        prerelease: false
+        token: ${{ secrets.GITHUB_TOKEN }}
