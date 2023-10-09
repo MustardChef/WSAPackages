@@ -1,5 +1,8 @@
 name: Download and Release WSA
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
@@ -7,6 +10,7 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "0 */5 * * *"
+
 
 env:
   WSA_WORK_ENV: /home/runner/work/WSAPackages/WSAPackages/download/WSAEnv
